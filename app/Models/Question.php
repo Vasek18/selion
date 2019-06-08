@@ -16,6 +16,15 @@ class Question extends Model
     ];
     public    $timestamps = false;
 
+    public function isRight($value)
+    {
+        if ($answer = $this->answers()->where('answer', $value)->first()) {
+            return $answer->is_right;
+        }
+
+        return false;
+    }
+
     public function type()
     {
         return $this->belongsTo('App\Models\QuestionType', 'type_id');

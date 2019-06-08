@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(Session::get('answered'))
+        <div class="alert alert-success">
+            Ответы засчитаны!
+        </div>
+    @endif
     <div class="row">
         <div class="col-3">
             <form action="{{ action('StudentController@tests') }}">

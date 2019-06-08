@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Competence;
 use App\Models\Employer;
+use App\Models\Question;
+use App\Models\QuestionUserAnswer;
 use App\Models\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -53,8 +56,19 @@ class StudentController extends Controller
 
     public function answerTest(Request $request, Test $test)
     {
-        $data = [];
+        $userAnswers = [];
 
-        return redirect(action('StudentController@tests'));
+        foreach ($request->question as $questionID => $answer) {
+            $question = Question::find($questionID);
+            $userAnswers[] = [
+                'user_id'     => Auth::id(),
+                'question_id' => $question->id,
+                'is_right'    => $question->isRight($answer),
+                'answer'      => $answer,
+            ];
+        }
+        QuestionUserAnswer::insert($userAnswers);
+
+        return redirect(action('StudentController@tests'))->with(['answered' => true]);
     }
 }
