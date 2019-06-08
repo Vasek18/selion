@@ -19,7 +19,7 @@ class CreateAnswersTable extends Migration
                 $table->bigIncrements('id');
                 $table->bigInteger('question_id');
                 $table->string('answer');
-                $table->boolean('is_right');
+                $table->boolean('is_right')->default(false);
             }
         );
     }

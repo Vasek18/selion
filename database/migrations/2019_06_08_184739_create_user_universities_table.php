@@ -20,7 +20,7 @@ class CreateUserUniversitiesTable extends Migration
                 $table->bigInteger('university_id');
                 $table->bigInteger('user_id');
                 $table->date('enter');
-                $table->date('leave');
+                $table->date('leave')->nullable();
             }
         );
     }

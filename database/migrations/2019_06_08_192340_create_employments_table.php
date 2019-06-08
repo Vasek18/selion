@@ -20,8 +20,8 @@ class CreateEmploymentsTable extends Migration
                 $table->bigInteger('user_id');
                 $table->bigInteger('vacancy_id');
                 $table->date('start');
-                $table->date('end');
-                $table->string('specialty');
+                $table->date('end')->nullable();
+                $table->string('specialty')->nullable();
                 $table->timestamps();
             }
         );

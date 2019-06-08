@@ -18,7 +18,7 @@ class CreateTestsTable extends Migration
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('name');
-                $table->bigInteger('employer_id');
+                $table->bigInteger('employer_id')->nullable();
             }
         );
     }

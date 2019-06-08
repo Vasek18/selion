@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
                 $table->bigIncrements('id');
                 $table->bigInteger('test_id');
                 $table->string('name');
-                $table->text('description');
+                $table->text('description')->nullable();
             }
         );
     }
