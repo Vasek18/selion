@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUserTypesTable extends Migration
@@ -20,6 +21,25 @@ class CreateUserTypesTable extends Migration
                 $table->string('name');
                 $table->string('code');
             }
+        );
+
+        DB::table('user_types')->insert(
+            array(
+                'name' => 'Студент',
+                'code' => 'student',
+            )
+        );
+        DB::table('user_types')->insert(
+            array(
+                'name' => 'ВУЗ',
+                'code' => 'vuz',
+            )
+        );
+        DB::table('user_types')->insert(
+            array(
+                'name' => 'Работодатель',
+                'code' => 'employer',
+            )
         );
     }
 
