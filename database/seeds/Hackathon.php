@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class Hackathon extends Seeder
 {
@@ -11,19 +12,19 @@ class Hackathon extends Seeder
      */
     public function run()
     {
-        \App\Models\Competence::where('id', '>', 0)->delete();
+        $competence1 = \App\Models\Competence::where('id', '>', 0)->delete();
         // создаём компетенции
         \App\Models\Competence::create(
             [
                 'name' => 'PHP',
             ]
         );
-        \App\Models\Competence::create(
+        $competence2 = \App\Models\Competence::create(
             [
                 'name' => 'Javascript',
             ]
         );
-        \App\Models\Competence::create(
+        $competence3 = \App\Models\Competence::create(
             [
                 'name' => 'Глазная хирургия',
             ]
@@ -31,33 +32,41 @@ class Hackathon extends Seeder
 
         \App\Models\Employer::where('id', '>', 0)->delete();
         // Работодатели
-        \App\Models\Employer::create(
+        $employer1 = \App\Models\Employer::create(
             [
                 'name' => 'Шаркон',
             ]
         );
-        \App\Models\Employer::create(
+        $employer2 = \App\Models\Employer::create(
             [
                 'name' => 'SpaceX',
             ]
         );
-        \App\Models\Employer::create(
+        $employer3 = \App\Models\Employer::create(
             [
                 'name' => 'Tesla',
             ]
         );
 
+        DB::table('test_competences')->truncate(); // пивотная таблица для компетенций тестов
         \App\Models\Test::where('id', '>', 0)->delete();
         // создаём тесты
-        \App\Models\Test::create(
+        $test1 = \App\Models\Test::create(
             [
-                'name' => 'Какой я сорт хлеба?',
+                'name'        => 'Какой я сорт хлеба?',
+                'employer_id' => $employer2->id,
             ]
         );
-        \App\Models\Test::create(
+        $test2 = \App\Models\Test::create(
             [
                 'name' => 'Сможете ли вы зарегистрировать на Цифровой прорыв с первого раза?',
             ]
         );
+        $test3 = \App\Models\Test::create(
+            [
+                'name' => 'Циклопы',
+            ]
+        );
+        $test3->competences()->attach($competence3->id);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Competence;
 use App\Models\Employer;
 use App\Models\Test;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
@@ -24,7 +24,21 @@ class StudentController extends Controller
         $data = [];
         $data['competences'] = Competence::all();
         $data['employers'] = Employer::all();
-        $data['tests'] = Test::all(); // todo фильтрация
+
+        $tests = false;
+        if ($request->employer && !$request->competence) {
+            $tests = Test::with(['competences'])->employer($request->employer)->get();
+        }
+        if ($request->competence && !$request->employer) {
+            $tests = Test::with(['competences'])->competence($request->competence)->get();
+        }
+        if ($request->competence && $request->employer) {
+            $tests = Test::with(['competences'])->competence($request->competence)->employer($request->employer)->get();
+        }
+        if (!$tests) {
+            $tests = Test::with(['competences'])->get();
+        }
+        $data['tests'] = $tests;
 
         return view('student.tests', $data);
     }
