@@ -6,13 +6,23 @@
         {{ csrf_field() }}
         @foreach($questions as $i => $question)
             <div class="form-group">
-                <label>{{ $i+1 }}) {{ $question->name }}</label>
-                @foreach($question->answers as $answer)
+                <label>{{ $i+1 }}) {{ $question->name }} @if ($question->required) * @endif</label>
+                @if ($question->type->code == 'string')
                     <br>
-                    <label>
-                        <input type="radio" name="{{ $question->id }}" value="{{ $answer->id }}"> {{ $answer->answer }}
-                    </label>
-                @endforeach
+                    <input type="string" name="{{ $question->id }}" class="form-control"
+                           @if ($question->required) required @endif
+                    >
+                @else
+                    @foreach($question->answers as $answer)
+                        <br>
+                        <label>
+                            <input type="{{ $question->type->code }}" name="{{ $question->id }}"
+                                   value="{{ $answer->id }}"
+                                   @if ($question->required) required @endif
+                            > {{ $answer->answer }}
+                        </label>
+                    @endforeach
+                @endif
             </div>
         @endforeach
         <button class="btn btn-primary">Отправить</button>

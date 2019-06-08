@@ -19,8 +19,6 @@ class StudentController extends Controller
 
     public function tests(Request $request)
     {
-        $this->middleware('auth');
-
         $data = [];
         $data['competences'] = Competence::all();
         $data['employers'] = Employer::all();
@@ -48,7 +46,7 @@ class StudentController extends Controller
         $data = [];
 
         $data['test'] = $test;
-        $data['questions'] = $test->questions()->with(['answers'])->get();
+        $data['questions'] = $test->questions()->with(['answers', 'type'])->get();
 
         return view('student.tests.detail', $data);
     }

@@ -11,8 +11,15 @@ class Question extends Model
         'test_id',
         'name',
         'description',
+        'type_id',
+        'required',
     ];
     public    $timestamps = false;
+
+    public function type()
+    {
+        return $this->belongsTo('App\Models\QuestionType', 'type_id');
+    }
 
     public function answers()
     {

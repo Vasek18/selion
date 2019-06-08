@@ -20,6 +20,8 @@ class CreateQuestionsTable extends Migration
                 $table->bigInteger('test_id');
                 $table->string('name');
                 $table->text('description')->nullable();
+                $table->bigInteger('type_id');
+                $table->boolean('required')->default(true);
             }
         );
     }

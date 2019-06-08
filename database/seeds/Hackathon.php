@@ -54,7 +54,7 @@ class Hackathon extends Seeder
 
         $test1 = \App\Models\Test::create(
             [
-                'name'        => 'Какой я сорт хлеба?',
+                'name'        => 'Вы булка?',
                 'employer_id' => $employer2->id,
             ]
         );
@@ -76,6 +76,7 @@ class Hackathon extends Seeder
             [
                 'name'    => 'Вы загорелый?',
                 'test_id' => $test1->id,
+                'type_id' => DB::table('question_types')->where('code', 'radio')->first()->id,
             ]
         );
         $answer7 = \App\Models\Answer::create(
@@ -89,7 +90,7 @@ class Hackathon extends Seeder
             [
                 'question_id' => $question4->id,
                 'answer'      => 'Нет',
-                'is_right'    => false,
+                'is_right'    => true,
             ]
         );
 
@@ -97,13 +98,14 @@ class Hackathon extends Seeder
             [
                 'name'    => 'Вы мягкий?',
                 'test_id' => $test1->id,
+                'type_id' => DB::table('question_types')->where('code', 'radio')->first()->id,
             ]
         );
         $answer7 = \App\Models\Answer::create(
             [
                 'question_id' => $question5->id,
                 'answer'      => 'Да',
-                'is_right'    => false,
+                'is_right'    => true,
             ]
         );
         $answer8 = \App\Models\Answer::create(
@@ -118,6 +120,7 @@ class Hackathon extends Seeder
             [
                 'name'    => 'Смущает ли вас необходимость регистрироваться на разных сервисах?',
                 'test_id' => $test2->id,
+                'type_id' => DB::table('question_types')->where('code', 'radio')->first()->id,
             ]
         );
         $answer1 = \App\Models\Answer::create(
@@ -137,8 +140,10 @@ class Hackathon extends Seeder
 
         $question2 = \App\Models\Question::create(
             [
-                'name'    => 'Нужны ли вам вводные данные, чтобы начать кодить?',
-                'test_id' => $test2->id,
+                'name'     => 'Нужны ли вам вводные данные, чтобы начать кодить?',
+                'test_id'  => $test2->id,
+                'type_id'  => DB::table('question_types')->where('code', 'radio')->first()->id,
+                'required' => false,
             ]
         );
         $answer3 = \App\Models\Answer::create(
@@ -160,6 +165,7 @@ class Hackathon extends Seeder
             [
                 'name'    => 'Лила?',
                 'test_id' => $test3->id,
+                'type_id' => DB::table('question_types')->where('code', 'checkbox')->first()->id,
             ]
         );
         $answer5 = \App\Models\Answer::create(
@@ -174,6 +180,14 @@ class Hackathon extends Seeder
                 'question_id' => $question3->id,
                 'answer'      => 'Красотка',
                 'is_right'    => true,
+            ]
+        );
+
+        $question7 = \App\Models\Question::create(
+            [
+                'name'    => 'Привет',
+                'test_id' => $test3->id,
+                'type_id' => DB::table('question_types')->where('code', 'string')->first()->id,
             ]
         );
     }
