@@ -40,6 +40,23 @@ class StudentController extends Controller
         }
         $data['tests'] = $tests;
 
-        return view('student.tests', $data);
+        return view('student.tests.index', $data);
+    }
+
+    public function showTest(Request $request, Test $test)
+    {
+        $data = [];
+
+        $data['test'] = $test;
+        $data['questions'] = $test->questions()->with(['answers'])->get();
+
+        return view('student.tests.detail', $data);
+    }
+
+    public function answerTest(Request $request, Test $test)
+    {
+        $data = [];
+
+        return redirect(action('StudentController@tests'));
     }
 }

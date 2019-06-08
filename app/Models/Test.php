@@ -19,6 +19,11 @@ class Test extends Model
         return $this->belongsToMany('App\Models\Competence', 'test_competences', 'test_id', 'competence_id');
     }
 
+    public function questions()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
+
     public function scopeCompetence($query, $competenceID)
     {
         $testIDs = DB::table('test_competences')->where('competence_id', $competenceID)->pluck('test_id')->toArray();

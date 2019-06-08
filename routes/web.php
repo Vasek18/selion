@@ -12,6 +12,8 @@ Route::group(
     function () {
         Route::get('/', 'StudentController@index');
         Route::get('/tests', 'StudentController@tests')->middleware('student');
+        Route::get('/tests/{test}', 'StudentController@showTest')->middleware('student');
+        Route::post('/tests/{test}', 'StudentController@answerTest')->middleware('student');
     }
 );
 

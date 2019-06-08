@@ -51,6 +51,7 @@ class Hackathon extends Seeder
         DB::table('test_competences')->truncate(); // пивотная таблица для компетенций тестов
         \App\Models\Test::where('id', '>', 0)->delete();
         // создаём тесты
+
         $test1 = \App\Models\Test::create(
             [
                 'name'        => 'Какой я сорт хлеба?',
@@ -68,5 +69,112 @@ class Hackathon extends Seeder
             ]
         );
         $test3->competences()->attach($competence3->id);
+
+        \App\Models\Question::where('id', '>', 0)->delete();
+        // создаём вопросы
+        $question4 = \App\Models\Question::create(
+            [
+                'name'    => 'Вы загорелый?',
+                'test_id' => $test1->id,
+            ]
+        );
+        $answer7 = \App\Models\Answer::create(
+            [
+                'question_id' => $question4->id,
+                'answer'      => 'Да',
+                'is_right'    => false,
+            ]
+        );
+        $answer8 = \App\Models\Answer::create(
+            [
+                'question_id' => $question4->id,
+                'answer'      => 'Нет',
+                'is_right'    => false,
+            ]
+        );
+
+        $question5 = \App\Models\Question::create(
+            [
+                'name'    => 'Вы мягкий?',
+                'test_id' => $test1->id,
+            ]
+        );
+        $answer7 = \App\Models\Answer::create(
+            [
+                'question_id' => $question5->id,
+                'answer'      => 'Да',
+                'is_right'    => false,
+            ]
+        );
+        $answer8 = \App\Models\Answer::create(
+            [
+                'question_id' => $question5->id,
+                'answer'      => 'Нет',
+                'is_right'    => false,
+            ]
+        );
+
+        $question1 = \App\Models\Question::create(
+            [
+                'name'    => 'Смущает ли вас необходимость регистрироваться на разных сервисах?',
+                'test_id' => $test2->id,
+            ]
+        );
+        $answer1 = \App\Models\Answer::create(
+            [
+                'question_id' => $question1->id,
+                'answer'      => 'Да',
+                'is_right'    => true,
+            ]
+        );
+        $answer2 = \App\Models\Answer::create(
+            [
+                'question_id' => $question1->id,
+                'answer'      => 'Нет',
+                'is_right'    => false,
+            ]
+        );
+
+        $question2 = \App\Models\Question::create(
+            [
+                'name'    => 'Нужны ли вам вводные данные, чтобы начать кодить?',
+                'test_id' => $test2->id,
+            ]
+        );
+        $answer3 = \App\Models\Answer::create(
+            [
+                'question_id' => $question2->id,
+                'answer'      => 'Да',
+                'is_right'    => false,
+            ]
+        );
+        $answer4 = \App\Models\Answer::create(
+            [
+                'question_id' => $question2->id,
+                'answer'      => 'Нет',
+                'is_right'    => true,
+            ]
+        );
+
+        $question3 = \App\Models\Question::create(
+            [
+                'name'    => 'Лила?',
+                'test_id' => $test3->id,
+            ]
+        );
+        $answer5 = \App\Models\Answer::create(
+            [
+                'question_id' => $question3->id,
+                'answer'      => 'Циклоп',
+                'is_right'    => true,
+            ]
+        );
+        $answer6 = \App\Models\Answer::create(
+            [
+                'question_id' => $question3->id,
+                'answer'      => 'Красотка',
+                'is_right'    => true,
+            ]
+        );
     }
 }

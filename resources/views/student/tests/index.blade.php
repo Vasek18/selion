@@ -33,7 +33,7 @@
             <div class="list-group">
                 @if (count($tests))
                     @foreach($tests as $test)
-                        <a href="#" class="list-group-item">
+                        <a href="{{ action('StudentController@showTest', ['test'=>$test]) }}" class="list-group-item">
                             {{ $test->name }}
                             @if ($test->competences)
                                 @foreach($test->competences as $competence)
