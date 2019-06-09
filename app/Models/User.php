@@ -62,4 +62,9 @@ class User extends Authenticatable
 
         return $pivot ? $pivot->specialty : '';
     }
+
+    public function competences()
+    {
+        return $this->hasMany('App\Models\UserCompetence');
+    }
 }

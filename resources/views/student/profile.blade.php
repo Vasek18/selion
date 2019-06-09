@@ -89,36 +89,17 @@
                                         <h4>Результаты тестирования</h4>
                                         <p class="text-muted">Процентное соотношение навыков студента к требованиям
                                             рынка</p>
-                                        <div class="progress mb-3">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">C++ (12% /
-                                                100%)
+                                        @foreach($competences as $competence)
+                                            <div class="progress mb-3">
+                                                <div class="progress-bar" role="progressbar"
+                                                     style="width: {{ $competence->progress }}%;"
+                                                     aria-valuenow="{{ $competence->progress }}" aria-valuemin="0"
+                                                     aria-valuemax="100">{{ $competence->competence->name }}
+                                                    ({{ $competence->progress }}% /
+                                                    100%)
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="progress mb-3">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">JavaScript
-                                                (52% / 100%)
-                                            </div>
-                                        </div>
-                                        <div class="progress mb-3">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">PHP (97% /
-                                                100%)
-                                            </div>
-                                        </div>
-                                        <div class="progress mb-3">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Python (26% /
-                                                100%)
-                                            </div>
-                                        </div>
-                                        <div class="progress mb-3">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">SQL (20% /
-                                                100%)
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Competence;
 use App\Models\Employer;
-use App\Models\ExpertComment;
 use App\Models\Question;
 use App\Models\QuestionUserAnswer;
 use App\Models\Test;
@@ -21,20 +20,7 @@ class StudentController extends Controller
         $user = Auth::user();
         $data['user'] = $user;
 
-        $userId = $user->id;
-        $passedTests = Test::passedBy($userId)->with(['competences'])->get();
-        $data['passed_tests'] = [];
-        foreach ($passedTests as $passedTest) {
-            $competence = $passedTest->competences->first();
-            $expertComment = ExpertComment::user($userId)->test($passedTest->id)->first();
-            $data['passed_tests'][] = [
-                'name'                     => $passedTest['name'],
-                'questions_count'          => $passedTest->questions()->get()->count(),
-                'answered_questions_count' => $passedTest->getAnsweredQuestionsCountBy($userId),
-                'competence'               => $competence ? $competence->name : '',
-                'expert_comment'           => $expertComment ? $expertComment->comment : '',
-            ];
-        }
+        $data['competences'] = $user->competences()->orderBy('progress', 'desc')->get();
 
         return view('student.profile', $data);
     }

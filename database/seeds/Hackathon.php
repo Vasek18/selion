@@ -16,9 +16,9 @@ class Hackathon extends Seeder
      */
     public function run()
     {
-        $competence1 = \App\Models\Competence::where('id', '>', 0)->delete();
+        \App\Models\Competence::where('id', '>', 0)->delete();
         // создаём компетенции
-        \App\Models\Competence::create(
+        $competence1 = \App\Models\Competence::create(
             [
                 'name' => 'PHP',
             ]
@@ -31,6 +31,11 @@ class Hackathon extends Seeder
         $competence3 = \App\Models\Competence::create(
             [
                 'name' => 'Глазная хирургия',
+            ]
+        );
+        $competence4 = \App\Models\Competence::create(
+            [
+                'name' => 'Управление',
             ]
         );
 
@@ -235,6 +240,30 @@ class Hackathon extends Seeder
                 'user_id'       => $ilon->id,
                 'specialty'     => 'Инженер',
                 'enter'         => Carbon::now(),
+            ]
+        );
+
+        \App\Models\UserCompetence::where('id', '>', 0)->delete();
+        // оцениваем Илона
+        \App\Models\UserCompetence::create(
+            [
+                'user_id'       => $ilon->id,
+                'competence_id' => $competence4->id,
+                'progress'      => 90,
+            ]
+        );
+        \App\Models\UserCompetence::create(
+            [
+                'user_id'       => $ilon->id,
+                'competence_id' => $competence1->id,
+                'progress'      => 50,
+            ]
+        );
+        \App\Models\UserCompetence::create(
+            [
+                'user_id'       => $ilon->id,
+                'competence_id' => $competence2->id,
+                'progress'      => 70,
             ]
         );
     }
