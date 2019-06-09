@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserType;
-
 class IndexController extends Controller
 {
 
@@ -14,10 +12,7 @@ class IndexController extends Controller
     {
 
         return view(
-            'welcome',
-            [
-                'user_types' => UserType::all(),
-            ]
+            'auth.login'
         );
     }
 }

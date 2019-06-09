@@ -14,7 +14,8 @@ class Student extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (!$request->expectsJson()) { // todo проверка типа пользователя
+        $user = $request->user();
+        if (!$user || $user->type->code != 'student') {
             return route('login');
         }
     }
