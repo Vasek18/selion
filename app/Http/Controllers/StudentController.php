@@ -18,7 +18,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $userId = Auth::id();
+        $user = Auth::user();
+        $data['user'] = $user;
+
+        $userId = $user->id;
         $passedTests = Test::passedBy($userId)->with(['competences'])->get();
         $data['passed_tests'] = [];
         foreach ($passedTests as $passedTest) {
@@ -33,7 +36,7 @@ class StudentController extends Controller
             ];
         }
 
-        return view('student.home', $data);
+        return view('student.profile', $data);
     }
 
     public function tests(Request $request)
