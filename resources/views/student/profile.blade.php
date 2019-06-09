@@ -70,9 +70,13 @@
                                                 <div class="col-8">
                                                     <div class="profile-content__sidebar-info--title">{{ $user->name }}</div>
                                                     <div class="profile-content__sidebar-info--details">
-                                                        <p>Вуз: Название</p>
-                                                        <p>Специальность: Название</p>
-                                                        <p>Город: Санкт-Петербург</p>
+                                                        @if ($user->university())
+                                                            <p>Вуз: {{ $user->university()->name }}</p>
+                                                        @endif
+                                                        <p>Специальность: {{ $user->getSpecialty() }}</p>
+                                                        @if ($user->university()->city)
+                                                            <p>Город: {{ $user->university()->city->name }}</p>
+                                                        @endif
                                                         <p>Почта: {{ $user->email }}</p>
                                                     </div>
                                                 </div>

@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\University;
+use App\Models\User;
+use App\Models\UserType;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -71,6 +75,7 @@ class Hackathon extends Seeder
         $test3->competences()->attach($competence3->id);
 
         \App\Models\Question::where('id', '>', 0)->delete();
+        \App\Models\Answer::where('id', '>', 0)->delete();
         // создаём вопросы
         $question4 = \App\Models\Question::create(
             [
@@ -188,6 +193,48 @@ class Hackathon extends Seeder
                 'name'    => 'Привет',
                 'test_id' => $test3->id,
                 'type_id' => DB::table('question_types')->where('code', 'string')->first()->id,
+            ]
+        );
+
+        User::where('email', 'rocketman@tesla.ru')->delete();
+        // создаём пользователя
+        $ilon = User::create(
+            [
+                'name'              => 'Илон Масяськи',
+                'email'             => 'rocketman@tesla.ru',
+                'email_verified_at' => now(),
+                'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'remember_token'    => 'ololotrololo',
+                'type_id'           => UserType::where('code', 'student')->first()->id,
+            ]
+        );
+
+        \App\Models\City::where('id', '>', 0)->delete();
+        // создаём Питер
+        $piter = \App\Models\City::create(
+            [
+                'name'        => 'Санкт-Петербург',
+                'coordinates' => '59.939095,30.315868',
+            ]
+        );
+
+        \App\Models\University::where('id', '>', 0)->delete();
+        // создаём Политех
+        $politeh = University::create(
+            [
+                'name'    => 'Политех',
+                'city_id' => $piter->id,
+            ]
+        );
+
+        DB::table('user_universities')->truncate(); // пивотная таблица для компетенций тестов
+        // устраиваем Илона в Политех
+        DB::table('user_universities')->insert(
+            [
+                'university_id' => $politeh->id,
+                'user_id'       => $ilon->id,
+                'specialty'     => 'Инженер',
+                'enter'         => Carbon::now(),
             ]
         );
     }

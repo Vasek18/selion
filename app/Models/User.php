@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -43,5 +44,22 @@ class User extends Authenticatable
     public function type()
     {
         return $this->belongsTo('App\Models\UserType');
+    }
+
+    public function universities()
+    {
+        return $this->belongsToMany('App\Models\University', 'user_universities', 'user_id', 'university_id');
+    }
+
+    public function university()
+    {
+        return $this->universities()->first();
+    }
+
+    public function getSpecialty()
+    {
+        $pivot = DB::table('user_universities')->where('user_id', $this->id)->first();
+
+        return $pivot ? $pivot->specialty : '';
     }
 }
