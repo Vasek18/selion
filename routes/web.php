@@ -15,6 +15,8 @@ Route::group(
         Route::get('/tests', 'StudentController@tests');
         Route::get('/tests/{test}', 'StudentController@showTest');
         Route::post('/tests/{test}', 'StudentController@answerTest');
+        Route::get('/university', 'StudentController@university');
+        Route::get('/portfolio', 'StudentController@portfolio');
     }
 );
 

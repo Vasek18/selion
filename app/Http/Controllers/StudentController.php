@@ -76,4 +76,18 @@ class StudentController extends Controller
 
         return redirect(action('StudentController@tests'))->with(['answered' => true]);
     }
+
+    public function university(Request $request)
+    {
+        $data = [];
+
+        return view('student.university', $data);
+    }
+
+    public function portfolio(Request $request)
+    {
+        $data = [];
+
+        return view('student.portfolio', $data);
+    }
 }

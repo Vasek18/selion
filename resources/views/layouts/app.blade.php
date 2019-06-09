@@ -42,13 +42,13 @@
             <!-- BEGIN SECTION :: TESTS LIST-->
             <section class="profile-content wow">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-6">
+                    <div class="row mb-5">
+                        <div class="col-6 wow">
                             <ul class="profile-content__lk-menu">
                                 <li><a href="{{ route('student') }}">Личный кабинет</a></li>
-                                <li><a href="#">Информацию от ВУЗа</a></li>
-                                <li><a href="#">Портфолио</a></li>
-                                <li class="mb-5"><a href="#">Тесты</a></li>
+                                <li><a href="{{ action('StudentController@university') }}">Информацию от ВУЗа</a></li>
+                                <li><a href="{{ action('StudentController@portfolio') }}">Портфолио</a></li>
+                                <li class="mb-5"><a href="{{ action('StudentController@tests') }}">Тесты</a></li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -62,7 +62,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 wow fadeInRight">
                             <div class="row">
                                 @yield('content')
                             </div>
