@@ -9,6 +9,6 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        return view('home', ['user_type' => 'employer']);
+        return view('home');
     }
 }

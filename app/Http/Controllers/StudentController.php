@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Competence;
 use App\Models\Employer;
+use App\Models\ExpertComment;
 use App\Models\Question;
 use App\Models\QuestionUserAnswer;
 use App\Models\Test;
@@ -17,7 +18,22 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('home', ['user_type' => 'student']);
+        $userId = Auth::id();
+        $passedTests = Test::passedBy($userId)->with(['competences'])->get();
+        $data['passed_tests'] = [];
+        foreach ($passedTests as $passedTest) {
+            $competence = $passedTest->competences->first();
+            $expertComment = ExpertComment::user($userId)->test($passedTest->id)->first();
+            $data['passed_tests'][] = [
+                'name'                     => $passedTest['name'],
+                'questions_count'          => $passedTest->questions()->get()->count(),
+                'answered_questions_count' => $passedTest->getAnsweredQuestionsCountBy($userId),
+                'competence'               => $competence ? $competence->name : '',
+                'expert_comment'           => $expertComment ? $expertComment->comment : '',
+            ];
+        }
+
+        return view('student.home', $data);
     }
 
     public function tests(Request $request)

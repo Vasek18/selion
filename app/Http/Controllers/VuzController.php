@@ -10,6 +10,6 @@ class VuzController extends Controller
      */
     public function index()
     {
-        return view('home', ['user_type' => 'vuz']);
+        return view('home');
     }
 }
